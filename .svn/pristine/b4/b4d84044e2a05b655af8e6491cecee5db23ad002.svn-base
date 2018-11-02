@@ -1,0 +1,82 @@
+#web服务器端口
+server.port=8896
+# tomcat的URI编码  
+server.tomcat.uri-encoding=UTF-8
+
+#logback日志
+logging.config=classpath:logback-spring.xml
+
+
+#设置文件上传大小限制
+spring.http.multipart.maxFileSize=500Mb
+spring.http.multipart.maxRequestSize=1000Mb
+
+#weChat配置信息
+#企业微信的企业唯一ID
+weChat.corpID=wwd19143ad6ac57e80
+#企业微信的应用的Secret值
+weChat.appSecret=MkRP0DAyL6aQY6prh3WWLzRPAzjbMtYOZJUtv49KjYs
+#企业微信的应用的agentId值
+weChat.agentId=1000003
+#企业微信的请求URI地址信息
+weChat.uri=https://qyapi.weixin.qq.com/cgi-bin/
+#企业微信的获取token值的方法名
+weChat.gettoken.method=gettoken
+#企业微信的发送消息的方法名
+weChat.sendMessage.method=message/send
+#企业微信的获取获取部门列表的方法名
+weChat.listDepartment.method=department/list
+#企业微信的获取用户基础信息的方法名
+weChat.listDepartmentSimpleUser.method=user/simplelist
+
+#email配置信息
+#email邮件服务器信息
+email.mailServer=mail.aotain.com
+#email.mailServer=219.134.132.214
+#email.mailServer=smtp.163.com
+#email邮件发送方账号
+email.sender.username=test02@aotain.com
+#email邮件发送方账号密码
+email.sender.password=7ZpDjHmX
+#email邮件发送超时时间
+email.sender.timeout=25000
+
+#phone配置信息
+#短信网关IP
+phone.gatewayIp=137.64.12.40
+#短信网关端口
+phone.gatewayPort=8900
+#短信发送者账号
+phone.phoneSender=1065974043
+#SP账号信息
+phone.spName=idcxaxt
+#SP密码信息
+phone.spPassword=SXdx@123
+#发送长短信标志：true以长短信进行拆分，false普通短信拆分
+phone.longMsg=true
+
+#解码编码
+password=kdf23242KDO
+
+# 0-no encrypt,1-AES
+encrypt_algorithm=1
+aes_key=LVVKVXWF56496929
+aes_iv=MSFBUWFS86537785
+
+# key of Security
+rz_key=XDFda9
+
+# 0-no hash,1-MD5,2-SHA-1
+hash_algorithm=1
+
+# 0-no compression,1-zip
+compression_format=1
+
+#push version
+version=v1.0
+
+
+#threadpool configure
+threadpool.size=5
+threadpool.max.size=10
+threadpool.queue.capacity=25

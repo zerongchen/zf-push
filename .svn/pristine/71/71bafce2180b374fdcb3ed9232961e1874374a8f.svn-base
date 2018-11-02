@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.aotain</groupId>
+	<artifactId>zf-push</artifactId>
+	<version>2.8.1</version>
+	<packaging>jar</packaging>
+
+	<name>zf-push</name>
+	<description>Demo project for Spring Boot</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.8.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<javamail.version>1.4.4</javamail.version>
+		<velocity.version>1.7</velocity.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency> 
+			<groupId>org.springframework.boot</groupId> 
+			<artifactId>spring-boot-starter-mail</artifactId> 
+		</dependency> 
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-velocity</artifactId>
+    		<version>1.4.6.RELEASE</version>
+		</dependency>
+
+
+		<!-- java mail -->
+		<dependency>
+      		<groupId>javax.mail</groupId>
+      		<artifactId>mail</artifactId>
+      		<version>${javamail.version}</version>
+    	</dependency>
+    	<dependency>  
+            <groupId>org.apache.velocity</groupId>  
+            <artifactId>velocity</artifactId>  
+            <version>${velocity.version}</version>  
+        </dependency>
+        <dependency>
+			<groupId>com.aotain</groupId>
+			<artifactId>zf-common-policy</artifactId>
+			<version>2.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.16</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<build>
+        <resources>
+			<resource>  
+                <directory>src/main/resources</directory>  
+                <filtering>true</filtering>  
+                <excludes>
+                    <exclude>static/fonts/**</exclude>                       
+                </excludes>  
+            </resource>  
+            <resource>  
+                <directory>src/main/resources</directory>  
+                <filtering>false</filtering>  
+                <includes>  
+                    <include>static/fonts/**</include>                     
+                </includes>  
+            </resource>  
+			 <resource>
+                 <directory>src/main/resources</directory>
+                  <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xlsx</include>
+                </includes>
+             </resource>  
+             <resource>
+                 <directory>mail</directory>
+                  <includes>
+                    <include>**/*.vm</include>
+                </includes>
+             </resource>       
+		</resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>                
+                <configuration>
+                    <descriptor>src/main/assembly/assembly.xml</descriptor>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

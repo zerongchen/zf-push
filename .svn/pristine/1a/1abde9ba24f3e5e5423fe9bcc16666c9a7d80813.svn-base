@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<configuration>
+    
+    <!-- 从高到地低 OFF 、 FATAL 、 ERROR 、 WARN 、 INFO 、 DEBUG 、 TRACE 、 ALL -->
+    <!--<property name="consoleLayoutPattern"    -->
+        <!--value="%-20(%d{yyyy-MM-dd HH:mm:ss.SSS} [%level] [%thread] [%logger] [%-4relative]) %msg%n" />-->
+    
+    <property name="fileLayoutPattern"    
+        value=" %d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] %logger \\(%F:%L\\)  -  %msg %n" />
+  
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">  
+        <layout class="ch.qos.logback.classic.PatternLayout">  
+            <pattern>${fileLayoutPattern}</pattern>
+        </layout>  
+    </appender>  
+  
+    <appender name="LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${ZF_HOME}/logs/zf-push/zf_push_info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${ZF_HOME}/logs/zf-push/zf_push_info.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <!-- 此处30天-->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>  
+        <layout class="ch.qos.logback.classic.PatternLayout">  
+            <Pattern>${fileLayoutPattern}</Pattern>
+        </layout>  
+    </appender>  
+  
+	<!-- 定义将com.aotain.zongfen包下的最低级别日志信息   -->
+	<logger name="com.aotain.zongfen" level="INFO"/>
+	<logger name="com.aotain.zongfen..mapper" level="DEBUG"/>
+	
+	<root>
+		<level value="DEBUG" /> <!-- 系统全局日志输出最低级别，但不包括com.aotain.zongfen包 -->
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="LOG_FILE" />
+		<!--<appender-ref ref="ERROR_FILE" />-->
+	</root>  
+  
+</configuration> 

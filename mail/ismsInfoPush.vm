@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ISMS信息预警</title>
+<style type="text/css">
+@charset "utf-8";
+/* CSS Document */
+h4{
+	color:red;
+}
+</style>
+</head>
+<body>
+	<p>
+		<font face="仿宋" color="#008000">&nbsp;Deal All:</font>
+	</p>
+	<p>
+		<font color="#008000" face="仿宋">&nbsp; &nbsp; &nbsp;
+			<span>
+				<label>告警省份:</label>
+				<label>$province</label>
+			</span>
+		</font>
+	</p>
+	<p>
+		<font color="#008000" face="仿宋">&nbsp; &nbsp; &nbsp;
+			<span>
+				<label>告警信息:</label>
+				<label>$alarmMessage</label>
+			</span>
+		</font>
+	</p>
+	<p>
+		<font color="#008000" face="仿宋">&nbsp; &nbsp; &nbsp;
+			<span>
+				<label>告警项参数:</label>
+				<label>$alarmParameter</label>
+			</span>
+		</font>
+	</p>
+	<p>
+		<font color="#008000" face="仿宋">&nbsp; &nbsp; &nbsp;
+			<span>
+				<label>告警时间:</label>
+				<label>$alarmTime</label>
+			</span>
+		</font>
+	</p>
+	<p>
+		<font face="仿宋" color="#008000">&nbsp;请尽快处理</font>
+	</p>
+</body>
+</html>

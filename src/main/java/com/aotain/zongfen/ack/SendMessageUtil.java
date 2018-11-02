@@ -1,0 +1,76 @@
+package com.aotain.zongfen.ack;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.alibaba.fastjson.JSONObject;
+import com.aotain.zongfen.bean.IsmsPushAck;
+import com.aotain.zongfen.bean.Return;
+import com.aotain.zongfen.bean.ValidateMessageResult;
+import com.aotain.zongfen.util.HttpUtils;
+import com.aotain.zongfen.util.PushSecurityTool;
+import com.aotain.zongfen.util.PushSecurityTool.PushEncryptResult;
+
+
+/**
+ * @Author ligh
+ */
+public class SendMessageUtil {
+
+	private static Logger logger = LoggerFactory.getLogger(SendMessageUtil.class);
+
+	public static void ack(String returnAddress, IsmsPushAck ack) {
+		if (ack != null) {
+			try {
+				if(returnAddress!=null && !"".equals(returnAddress)) {
+					String response = HttpUtils.postList(returnAddress, constructParamsJson(ack),"UTF-8");
+					if(response == null || "".equals(response)){
+						logger.error("Push server send ack fail,response message is empty" );
+					}else {
+						logger.info("Push server send ack success");
+					}
+				}else {
+					logger.error("Push server send ack fail,return address is empty" );
+				}
+			} catch (Exception e) {
+				logger.error("Push server send ack exception", e);
+			}
+		}
+
+	}
+
+	private static List<NameValuePair> constructParamsJson(IsmsPushAck ack) throws Exception {
+		PushSecurityTool tool = new PushSecurityTool();
+		String pushAckStr = ((JSONObject) JSONObject.toJSON(ack)).toJSONString();
+		PushEncryptResult encryptResult = tool.encrypt(pushAckStr);
+		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+		NameValuePair v1 = new BasicNameValuePair("randVal", encryptResult.getRandVal());
+		NameValuePair v2 = new BasicNameValuePair("pwdHash", encryptResult.getPwdHash());
+		NameValuePair v3 = new BasicNameValuePair("result", encryptResult.getPush());
+		NameValuePair v4 = new BasicNameValuePair("resultHash", encryptResult.getPushHash());
+		NameValuePair v5 = new BasicNameValuePair("encryptAlgorithm", String.valueOf(encryptResult.getEncryptAlgorithm()));
+		NameValuePair v6 = new BasicNameValuePair("hashAlgorithm", String.valueOf(encryptResult.getHashAlgorithm()));
+		NameValuePair v7 = new BasicNameValuePair("compressionFormat", String.valueOf(encryptResult.getCommpresssionFormat()));
+		NameValuePair v10 = new BasicNameValuePair("pushVersion", encryptResult.getPushVersion());
+
+		formparams.add(v1);
+		formparams.add(v2);
+		formparams.add(v3);
+		formparams.add(v4);
+		formparams.add(v5);
+		formparams.add(v6);
+		formparams.add(v7);
+		formparams.add(v10);
+		return formparams;
+	}
+
+	private static Return parseReturn(String response) {
+		return JSONObject.parseObject(response, Return.class);
+	}
+
+}
